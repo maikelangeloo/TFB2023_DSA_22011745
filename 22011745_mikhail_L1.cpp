@@ -11,7 +11,7 @@ struct Person {
 };
 
 int main() {
-    Person student[10]; // Array of 10 Person structures
+    Person student[10];
 
     // Prompting user to enter data for 10 students
     for (int i = 0; i < 10; ++i) {
@@ -27,7 +27,7 @@ int main() {
         cin >> student[i].contact;
 
         cout << "Email: ";
-        cin.ignore(); // Clear newline before using getline again
+        cin.ignore(); 
         getline(cin, student[i].email);
     }
 
