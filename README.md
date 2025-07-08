@@ -6,7 +6,7 @@ Lab tasks for ADS May 2025.
 
 | Date       | Lab | Tasks |
 |------------|-----|-------|
-| 28/5/2025  | 1   | - [Array](./L1/Array.md) |
+| 28/5/2025  | 1   | - [Array](L1/22011745_mikhail_L1.cpp) |
 | 04/6/2025  | 2   | Algorithm Challenges:<br> - [Easy](./L2/Easy.md)<br> - [Medium](./L2/Medium.md)<br> - [Hard](./L2/Hard.md) |
 | 11/6/2025  | 3   | Linked List:<br> - [Singly](./L3/Singly.md)<br> - [Doubly](./L3/Doubly.md) |
 | 18/6/2025  | 4   | Circular Linked List:<br> - [Circular Singly](./L4/CircularSingly.md)<br> - [Circular Doubly](./L4/CircularDoubly.md) |
