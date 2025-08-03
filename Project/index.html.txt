@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Search App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+    h2 {
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    input, select, button {
+      padding: 10px;
+      margin-right: 10px;
+      margin-bottom: 20px;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🏠 Property Search App</h2>
+
+  <label>Search for Property (Name or Price): </label>
+  <input type="text" id="searchInput" placeholder="Enter name or price">
+
+  <select id="searchType">
+    <option value="linear">Linear Search</option>
+    <option value="binary">Binary Search (by price only)</option>
+  </select>
+
+  <button onclick="searchProperty()">Search</button>
+
+  <div id="result" class="result"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Property Name</th>
+        <th>Price (RM)</th>
+      </tr>
+    </thead>
+    <tbody id="propertyTable"></tbody>
+  </table>
+
+  <script>
+    const properties = [
+      { id: 1, name: "Apartment A", price: 120000 },
+      { id: 2, name: "Condo B", price: 200000 },
+      { id: 3, name: "Terrace C", price: 180000 },
+      { id: 4, name: "Bungalow D", price: 350000 },
+      { id: 5, name: "Semi-D E", price: 280000 },
+      { id: 6, name: "Flat F", price: 90000 },
+    ];
+
+    // Display property list
+    const table = document.getElementById("propertyTable");
+    properties.forEach(prop => {
+      const row = `<tr>
+        <td>${prop.id}</td>
+        <td>${prop.name}</td>
+        <td>${prop.price}</td>
+      </tr>`;
+      table.innerHTML += row;
+    });
+
+    function searchProperty() {
+      const input = document.getElementById("searchInput").value.trim();
+      const type = document.getElementById("searchType").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!input) {
+        resultDiv.innerHTML = "❌ Please enter a search term.";
+        return;
+      }
+
+      let start = performance.now();
+      let found = null;
+
+      if (type === "linear") {
+        // Linear Search by name or price
+        for (let i = 0; i < properties.length; i++) {
+          if (
+            properties[i].name.toLowerCase() === input.toLowerCase() ||
+            properties[i].price.toString() === input
+          ) {
+            found = properties[i];
+            break;
+          }
+        }
+      } else if (type === "binary") {
+        // Binary Search by sorted price
+        const sorted = [...properties].sort((a, b) => a.price - b.price);
+        let low = 0, high = sorted.length - 1;
+        const target = parseInt(input);
+        while (low <= high) {
+          const mid = Math.floor((low + high) / 2);
+          if (sorted[mid].price === target) {
+            found = sorted[mid];
+            break;
+          } else if (sorted[mid].price < target) {
+            low = mid + 1;
+          } else {
+            high = mid - 1;
+          }
+        }
+      }
+
+      let end = performance.now();
+      if (found) {
+        resultDiv.innerHTML = `✅ Found: <strong>${found.name}</strong> (RM ${found.price}) <br>⏱️ Time taken: ${(end - start).toFixed(4)} ms`;
+      } else {
+        resultDiv.innerHTML = `❌ Property not found. <br>⏱️ Time taken: ${(end - start).toFixed(4)} ms`;
+      }
+    }
+  </script>
+</body>
+</html>
